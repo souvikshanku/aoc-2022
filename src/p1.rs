@@ -35,6 +35,6 @@ pub fn solve_p1() {
         current_sum = 0;
     }
 
-    println!("{0}, {1}, {2}", max_sum1, max_sum2, max_sum3);
-    println!("{0}", max_sum1 + max_sum2 + max_sum3);
+    println!("Max three calorie sums: {0}, {1}, {2}", max_sum1, max_sum2, max_sum3);
+    println!("Sum: {0}", max_sum1 + max_sum2 + max_sum3);
 }
