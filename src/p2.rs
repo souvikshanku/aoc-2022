@@ -56,4 +56,3 @@ pub fn solve_p2() {
 
     println!("Part 2 Score: {}", sum2);
 }
-    

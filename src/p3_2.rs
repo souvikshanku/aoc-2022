@@ -7,10 +7,12 @@ pub fn solve_p3() {
     let contents = fs::read_to_string(file_path)
         .expect("Should have been able to read the file");
     let rucksacks: Vec<_> = contents.split("\n").collect();
+    let count: usize = rucksacks.len() / 3;
 
     let mut sum: usize = 0;
-    for rucksack in &rucksacks{
-        sum += check_common_item(rucksack);
+
+    for i in 0..count {
+        sum += check_common_item(rucksacks[3 * i], rucksacks[3 * i + 1], rucksacks[3 * i + 2]);
     }
 
     println!("{}", sum);
@@ -38,30 +40,27 @@ fn get_value_from_alpha(alpha: &str) -> usize {
 }
 
 
-fn check_common_item(rucksack: &str) -> usize {
-    let rucksack: Vec<char> = rucksack.chars().collect();
-    let length = rucksack.len();
-    let half_length = length/ 2;
+fn check_common_item(r1: &str, r2: &str, r3: &str) -> usize {
 
-    let mut first_half: Vec<_> = vec!['-'; half_length];
-    let mut second_half: Vec<_> = vec!['-'; half_length];
+    let mut common_1_2: Vec<char> = Vec::new();
+    let len1 = r1.len();
 
-    for i in 0..half_length {
-        first_half[i] = rucksack[i];
-    }
-
-    for i in 0..half_length {
-        second_half[i] = rucksack[half_length + i];
-    }
-    
-    let mut result: usize = 0;
-
-    for i in 0..half_length {
-        if second_half.contains(&first_half[i]) {
-            result = get_value_from_alpha(&first_half[i].to_string());
-            break;
+    for i in 0..len1 {
+        let current_char = r1.chars().collect::<Vec<_>>()[i];
+        if r2.contains(current_char) {
+            common_1_2.push(current_char);
         }
     }
 
-    return result;
+
+    let common_len = common_1_2.len();
+    for i in 0..common_len {
+        let current_char = common_1_2[i];
+        if r3.contains(current_char) {
+            return get_value_from_alpha(&current_char.to_string());
+        }
+    }
+
+    return 0;
 }
+
