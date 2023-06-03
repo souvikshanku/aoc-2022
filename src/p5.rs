@@ -1,7 +1,7 @@
 use std::fs;
 
 
-pub fn solve_p5() {
+pub fn solve_p5(part: usize) {
     let file_path = "./inputs/p5.txt";
 
     let contents = fs::read_to_string(file_path)
@@ -25,7 +25,6 @@ pub fn solve_p5() {
             crates[j] = crates_and_other_chars[idx];
             idx += 4
         }
-        // println!("{:?}", crates);
 
         let mut crate_idx: usize = 0;
         for letter in &crates {
@@ -51,24 +50,36 @@ pub fn solve_p5() {
         all_arrays[i] = rev_array;
     }
 
-    println!("{:?}", all_arrays);
-    println!("---------------------------");
+    if part == 1 {
+        for command in _commands {
+            let indicator: Vec<_> = command.split(" ").collect();
 
-    for command in _commands {
-        let indicator: Vec<_> = command.split(" ").collect();
+            let a_ind = indicator[3].parse::<usize>().unwrap();
+            let b_ind = indicator[5].parse::<usize>().unwrap();
+            let m = indicator[1].parse::<usize>().unwrap();
 
-        let a_ind = indicator[3].parse::<usize>().unwrap();
-        let b_ind = indicator[5].parse::<usize>().unwrap();
-        let m = indicator[1].parse::<usize>().unwrap();
+            (all_arrays[a_ind -1], all_arrays[b_ind -1]) = move_by_command1(
+                all_arrays[a_ind -1].clone(),
+                all_arrays[b_ind -1].clone(), 
+                m
+            );
+        }
+    } else {
+        for command in _commands {
+            let indicator: Vec<_> = command.split(" ").collect();
 
-        (all_arrays[a_ind -1], all_arrays[b_ind -1]) = move_by_command(
-            all_arrays[a_ind -1].clone(),
-            all_arrays[b_ind -1].clone(), 
-            m
-        );
+            let a_ind = indicator[3].parse::<usize>().unwrap();
+            let b_ind = indicator[5].parse::<usize>().unwrap();
+            let m = indicator[1].parse::<usize>().unwrap();
+
+            (all_arrays[a_ind -1], all_arrays[b_ind -1]) = move_by_command2(
+                all_arrays[a_ind -1].clone(),
+                all_arrays[b_ind -1].clone(), 
+                m
+            );
+        }        
     }
 
-    println!("{:?}", all_arrays);
     for array in &all_arrays {
         print!("{}", array[array.len() - 1]);
     }
@@ -77,10 +88,23 @@ pub fn solve_p5() {
    
 }
 
-fn move_by_command(mut a: Vec<String>, mut b: Vec<String>, m: usize) -> (Vec<String>, Vec<String>){
+fn move_by_command1(mut a: Vec<String>, mut b: Vec<String>, m: usize) -> (Vec<String>, Vec<String>){
     for _i in 0..m {
         let moved_letter = a.pop().unwrap();
         b.push(moved_letter);
+    }
+    (a, b)
+}
+
+fn move_by_command2(mut a: Vec<String>, mut b: Vec<String>, m: usize) -> (Vec<String>, Vec<String>){
+    let mut temp = vec![];
+    for _i in 0..m {
+        let moved_letter = a.pop().unwrap();
+        temp.push(moved_letter);
+    }
+
+    for _i in (0..m).rev() {
+        b.push(temp[_i].clone());
     }
     (a, b)
 }
