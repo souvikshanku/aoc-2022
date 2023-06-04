@@ -4,6 +4,7 @@ mod p3;
 mod p3_2;
 mod p4;
 mod p5;
+mod p6;
 
 fn main() {
     println!("-----------Day 1-----------");
@@ -18,4 +19,7 @@ fn main() {
     println!("-----------Day 5-----------");
     p5::solve_p5(1);
     p5::solve_p5(2);
+    println!("-----------Day 6-----------");
+    p6::solve_p6(1);
+    p6::solve_p6(2);
 }
