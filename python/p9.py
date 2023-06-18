@@ -5,8 +5,6 @@ move_str = ""
 for movement in movements.split("\n"):
     move_str += movement[0] * int(movement[2:])
 
-# print(move_str)
-
 head = (0, 0)
 tail = (0, 0)
 
@@ -54,99 +52,53 @@ for move in move_str:
     else:
         head, tail = move_down(head, tail)
 
-# print(len(tail_set))
+print(len(tail_set))
 
-# heads = [(0, 0)] * 10
-heads = [(0, 0), (-1, 0), (-2, 0), (-3, 0), (-4, 0)] + [(-5, 0)] * 5
-print(heads)
-print("____________________________")
+diff_dict = {
+    '-2 -2': [1, 1],
+    '-2 -1': [1, 1],
+    '-2 0': [1, 0],
+    '-2 1': [1, -1],
+    '-2 2': [1, -1],
+    '-1 2': [1, -1],
+    '0 2': [0, -1],
+    '1 2': [-1, -1],
+    '2 2': [-1, -1],
+    '2 1': [-1, -1],
+    '2 0': [-1, 0],
+    '2 -1': [-1, 1],
+    '2 -2': [-1, 1],
+    '1 -2': [-1, 1],
+    '0 -2': [0, 1],
+    '-1 -2': [1, 1]
+}
 
-tail_set2 = set({})
+
+heads = [(0, 0)] * 10
+
+tail_set = set({})
+tail_set.add(heads[-1])
 
 for move in move_str:
     if move == 'L':
         heads[0] = (heads[0][0] - 1, heads[0][1])
-        for i in range(9):
-            x_diff = heads[i+1][0] - heads[i][0]
-            y_diff = heads[i+1][1] - heads[i][1]
-            if abs(x_diff) == 1 and abs(y_diff) == 1:
-                pass
-            if abs(x_diff) == 2 and abs(y_diff) == 0:
-                heads[i+1] = (heads[i+1][0] - 1, heads[i+1][1])
-            elif x_diff == 2 and abs(y_diff) == 1:
-                heads[i+1] = (heads[i+1][0] - 1, heads[i+1][1] - y_diff)
-            elif x_diff == 1 and y_diff == 2:
-                heads[i+1] = (heads[i+1][0] - 1, heads[i+1][1] - 1)
-            elif x_diff == 1 and y_diff == - 2:
-                heads[i+1] = (heads[i+1][0] - 1, heads[i+1][1] + 1)
-            elif abs(x_diff) == 2 and abs(y_diff) == 2:
-                heads[i+1] = (heads[i+1][0] - 1, heads[i+1][1] + (y_diff / abs(y_diff) ) )
-            
-
-        print(heads)
-        tail_set2.add(heads[-1])
-
-    elif move == 'R':
+    if move == 'R':
         heads[0] = (heads[0][0] + 1, heads[0][1])
-        for i in range(9):
-            x_diff = heads[i+1][0] - heads[i][0]
-            y_diff = heads[i+1][1] - heads[i][1]
-            if abs(x_diff) == 1 and abs(y_diff) == 1:
-                pass
-            if abs(x_diff) == 2 and y_diff == 0:
-                heads[i+1] = (heads[i+1][0] + 1, heads[i+1][1])
-            elif x_diff == -2 and abs(y_diff) == 1:
-                heads[i+1] = (heads[i+1][0] + 1, heads[i+1][1] - y_diff)
-            elif x_diff == -1 and y_diff == 2:
-                heads[i+1] = (heads[i+1][0] + 1, heads[i+1][1] - 1)
-            elif x_diff == -1 and y_diff == - 2:
-                heads[i+1] = (heads[i+1][0] + 1, heads[i+1][1] + 1)
-            elif abs(x_diff) == 2 and abs(y_diff) == 2:
-                heads[i+1] = (heads[i+1][0] + 1, heads[i+1][1] + (y_diff / abs(y_diff) ) )
-
-        print(heads)
-        tail_set2.add(heads[-1])
- 
-    elif move == 'U':
+    if move == 'U':
         heads[0] = (heads[0][0], heads[0][1] + 1)
-        for i in range(9):
-            x_diff = heads[i+1][0] - heads[i][0]
-            y_diff = heads[i+1][1] - heads[i][1]
-            if abs(x_diff) == 1 and abs(y_diff) == 1:
-                pass
-            if abs(y_diff) == 2 and x_diff == 0:
-                heads[i+1] = (heads[i+1][0], heads[i+1][1] + 1)
-            elif y_diff == -2 and abs(x_diff) == 1:
-                heads[i+1] = (heads[i+1][0] - x_diff, heads[i+1][1] + 1)
-            elif y_diff == 1 and x_diff == 2:
-                heads[i+1] = (heads[i+1][0] - 1, heads[i+1][1] + 1)
-            elif y_diff == -1 and x_diff == - 2:
-                heads[i+1] = (heads[i+1][0] + 1, heads[i+1][1] + 1)
-            elif abs(x_diff) == 2 and abs(y_diff) == 2:
-                heads[i+1] = (heads[i+1][0] + (x_diff / abs(x_diff)), heads[i+1][1] + 1)
-
-        print(heads)
-        tail_set2.add(heads[-1])
-
-    else:
+    if move == 'D':
         heads[0] = (heads[0][0], heads[0][1] - 1)
-        for i in range(9):
-            x_diff = heads[i+1][0] - heads[i][0]
-            y_diff = heads[i+1][1] - heads[i][1]
-            if abs(x_diff) == 1 and abs(y_diff) == 1:
-                pass
-            if abs(y_diff) == 2 and x_diff == 0:
-                heads[i+1] = (heads[i+1][0], heads[i+1][1] - 1)
-            elif y_diff == -2 and abs(x_diff) == 1:
-                heads[i+1] = (heads[i+1][0] - x_diff, heads[i+1][1] - 1)
-            elif y_diff == 1 and x_diff == 2:
-                heads[i+1] = (heads[i+1][0] - 1, heads[i+1][1] - 1)
-            elif y_diff == -1 and x_diff == - 2:
-                heads[i+1] = (heads[i+1][0] + 1, heads[i+1][1] - 1)
-            elif abs(x_diff) == 2 and abs(y_diff) == 2:
-                heads[i+1] = (heads[i+1][0] + (x_diff / abs(x_diff)), heads[i+1][1] - 1)
+    
+    for i in range(1, 10):
+        x_diff = heads[i][0] - heads[i-1][0]
+        y_diff = heads[i][1] - heads[i-1][1]
+        if abs(x_diff) <= 1 and abs(y_diff) <= 1:
+            pass
+        else:
+            diff_str = f"{x_diff} {y_diff}"
+            dx, dy = diff_dict[diff_str]
+            heads[i] = heads[i][0] + dx, heads[i][1] + dy
 
-        print(heads)
-        tail_set2.add(heads[-1])
+    tail_set.add(heads[-1])
 
-print(len(tail_set2))
+print(len(tail_set))
