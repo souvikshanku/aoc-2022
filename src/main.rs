@@ -7,6 +7,7 @@ mod p5;
 mod p6;
 mod p8;
 mod p9_1;
+mod p10;
 
 fn main() {
     println!("-----------Day 1-----------");
@@ -28,4 +29,6 @@ fn main() {
     p8::solve_p8();
     println!("-----------Day 9-----------");
     p9_1::solve_p9();
+    println!("-----------Day 10-----------");
+    p10::solve_p10();
 }
