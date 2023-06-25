@@ -55,7 +55,6 @@ pub fn solve_p10() {
     println!("{:?}", result);
 
 
-    let mut cycle = 0;
     let mut value = 1;
     let mut all_values = vec![0; 240];
     let mut pixel_array: Vec<_> = vec!["  "; 240];
@@ -88,7 +87,7 @@ pub fn solve_p10() {
     }
 
     let mut idx = 0;
-    for i in 0..6 {
+    for _i in 0..6 {
         println!("{:?}", &pixel_array[idx..(idx+40)]);
         idx += 40;
     }

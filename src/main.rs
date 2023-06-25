@@ -9,6 +9,7 @@ mod p8;
 mod p9_1;
 mod p10;
 
+
 fn main() {
     println!("-----------Day 1-----------");
     p1::solve_p1();
