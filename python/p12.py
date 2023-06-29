@@ -46,33 +46,52 @@ def find_neighbours(i, j):
     return neighbours
 
 
-queue = [start]
-done = set()
-path_len = 0
-reached = False
+def find_min_steps(start):
+    queue = [start]
+    done = set()
+    path_len = 0
+    reached = False
 
-while not reached and len(queue) > 0:
-    new_nbrs = []
-    for point in queue:
-        done.add(point)
-        i, j = point
-        nbrs = find_neighbours(i, j)
+    while len(queue) > 0:
+        new_nbrs = []
+        for point in queue:
+            done.add(point)
+            i, j = point
+            nbrs = find_neighbours(i, j)
 
-        for nbr in nbrs:
-            if nbr not in done:
-                new_nbrs.append(nbr)        
+            for nbr in nbrs:
+                if nbr not in done:
+                    new_nbrs.append(nbr)        
 
-    if end in new_nbrs:
+        if end in new_nbrs:
+            path_len += 1
+            reached = True
+            break
+        else:
+            queue = list(set(new_nbrs))
+
         path_len += 1
-        reached = True
-        break
-    else:
-        queue = list(set(new_nbrs))
 
-    path_len += 1
-    print(path_len)
+    if not reached:
+        path_len = num_rows * num_colunms
+
+    return path_len 
 
 
-print(path_len)
+print(find_min_steps(start))  # part 1
 
 
+starting_points = []
+for r in range(num_rows):
+    for c in range(num_colunms):
+        if path_map[r][c] == 1:
+            start = (r, c)
+            starting_points.append(start)
+
+
+steps = []
+for point in starting_points:
+    min_steps = find_min_steps(point)
+    steps.append(min_steps)
+
+print(min(steps))  # part 2
