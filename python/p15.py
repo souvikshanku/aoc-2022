@@ -61,9 +61,9 @@ for i in range(len(sensor)):
     c1 = [y1 - x1 + dist, y1 - x1 - dist]
     c2 = [y1 + x1 + dist, y1 + x1 - dist]
 
-    for i in range(len(c1)):
-        for j in range(len(c1)):
-            imp_points.append(((c1[i]-c2[i])/2, (c1[i]+c2[j])/2))
+    for _i in range(len(c1)):
+        for _j in range(len(c1)):
+            imp_points.append(((c1[_i]-c2[_i])/2, (c1[_i]+c2[_j])/2))
 
     for j in range(i, len(sensor)):
         x1, y1 = sensor[j]
@@ -72,13 +72,13 @@ for i in range(len(sensor)):
         c3 = [y1 - x1 + dist, y1 - x1 - dist]
         c4 = [y1 + x1 + dist, y1 + x1 - dist]
 
-        for i in range(len(c1)):
-            for j in range(len(c4)):
-                imp_points.append(((c1[i]-c4[i])/2, (c1[i]+c4[j])/2))
+        for _i in range(len(c1)):
+            for _j in range(len(c4)):
+                imp_points.append(((c1[_i]-c4[_i])/2, (c1[_i]+c4[_j])/2))
         
-        for i in range(len(c2)):
-            for j in range(len(c3)):
-                imp_points.append(((c2[i]-c3[i])/2, (c2[i]+c3[j])/2))
+        for _i in range(len(c2)):
+            for _j in range(len(c3)):
+                imp_points.append(((c2[_i]-c3[_i])/2, (c2[_i]+c3[_j])/2))
 
 
 
