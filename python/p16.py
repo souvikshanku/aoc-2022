@@ -1,3 +1,5 @@
+import functools
+
 with open("inputs/p16.txt", "r") as f:
     content = f.read()
 
@@ -22,6 +24,7 @@ max_p = 0
 done = {key: 0 for key in rate}
 
 
+@functools.lru_cache(maxsize=None)
 def traverse(key, pressure, path, time):
     global max_p
     time += 1
@@ -36,16 +39,21 @@ def traverse(key, pressure, path, time):
         time += 1  # open the valve
         pressure += rate[key] * (30 - time)
 
-    path.add(key)
+    # path.add(key)
+    if key not in path:
+        path += "_" + key
     nbrs = tunnel[key]
 
     for nbr in nbrs:
-        nbr_path = path.copy()
+        nbr_path = path  #.copy()
         nbr_time  = time
         nbr_pressure = pressure
         traverse(nbr, nbr_pressure, nbr_path, nbr_time)
 
 
-
-traverse("DD", pressure=0, path=set(), time=0)
+traverse("BB", pressure=0, path="", time=0)
+print(max_p)
+traverse("II", pressure=0, path="", time=0)
+print(max_p)
+traverse("DD", pressure=0, path="", time=0)
 print(max_p)
